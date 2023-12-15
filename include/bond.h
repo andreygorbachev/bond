@@ -26,7 +26,7 @@
 namespace bond
 {
 
-	class bond
+	template<double nominal = 100.0> class bond
 	{
 
 	public:
@@ -36,6 +36,7 @@ namespace bond
 	public:
 
 		auto get_coupon() const noexcept;
+		auto get_nominal() const noexcept;
 
 	private:
 
@@ -44,15 +45,21 @@ namespace bond
 	};
 
 
-	inline bond::bond(double coupon) noexcept
+	template<double nominal> bond<nominal>::bond(double coupon) noexcept
 		: _coupon{ coupon }
 	{
 	}
 
 
-	inline auto bond::get_coupon() const noexcept
+	template<double nominal> auto bond<nominal>::get_coupon() const noexcept
 	{
 		return _coupon;
+	}
+
+
+	template<double nominal> auto bond<nominal>::get_nominal() const noexcept
+	{
+		return nominal;
 	}
 
 }

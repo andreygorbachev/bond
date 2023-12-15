@@ -28,6 +28,12 @@
 namespace bond
 {
 
+	auto make_bond() noexcept -> bond<100.0>
+	{
+		return bond{ 0.025 };
+	}
+
+
 	TEST(bond, constructor)
 	{
 		const auto b = bond{ 0.025 };
@@ -37,9 +43,16 @@ namespace bond
 
 	TEST(bond, get_coupon)
 	{
-		const auto b = bond{ 0.025 };
+		const auto b = make_bond();
 
 		EXPECT_EQ(0.025, b.get_coupon());
+	}
+
+	TEST(bond, get_nominal)
+	{
+		const auto b = make_bond();
+
+		EXPECT_EQ(100.0, b.get_nominal());
 	}
 
 }
