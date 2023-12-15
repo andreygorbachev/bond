@@ -21,31 +21,37 @@
 // SOFTWARE.
 
 #include <bond.h>
+#include <utils.h>
 
 #include <gtest/gtest.h>
+
+#include <chrono>
+
+
+using namespace std;
+using namespace std::chrono;
 
 
 namespace security
 {
 
-	auto make_bond() noexcept -> bond<100.0>
-	{
-		return bond{ 0.025 };
-	}
-
-
 	TEST(bond, constructor)
 	{
-		const auto b = bond{ 0.025 };
+		const auto b = bond{
+			2024y / April / 1d,
+			from_percent(2.5)
+		};
 
 		EXPECT_EQ(0.025, b.get_coupon());
 	}
 
-	TEST(bond, get_coupon)
-	{
-		const auto b = make_bond();
 
-		EXPECT_EQ(0.025, b.get_coupon());
+	auto make_bond() noexcept -> bond<100.0>
+	{
+		return bond{
+			2024y / April / 1d,
+			0.025
+		};
 	}
 
 	TEST(bond, get_nominal)
@@ -53,6 +59,20 @@ namespace security
 		const auto b = make_bond();
 
 		EXPECT_EQ(100.0, b.get_nominal());
+	}
+
+	TEST(bond, get_maturity)
+	{
+		const auto b = make_bond();
+
+		EXPECT_EQ(2024y / April / 1d, b.get_maturity());
+	}
+
+	TEST(bond, get_coupon)
+	{
+		const auto b = make_bond();
+
+		EXPECT_EQ(0.025, b.get_coupon());
 	}
 
 }

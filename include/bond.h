@@ -22,6 +22,9 @@
 
 #pragma once
 
+#include <chrono>
+#include <memory>
+
 
 namespace security
 {
@@ -31,35 +34,50 @@ namespace security
 
 	public:
 
-		explicit bond(double coupon) noexcept;
+		explicit bond(
+			std::chrono::year_month_day maturity,
+			double coupon
+		) noexcept;
 
 	public:
 
-		auto get_coupon() const noexcept;
-		auto get_nominal() const noexcept;
+		auto get_nominal() const noexcept -> double;
+
+		auto get_maturity() const noexcept -> std::chrono::year_month_day;
+		auto get_coupon() const noexcept -> double;
 
 	private:
 
+		std::chrono::year_month_day _maturity;
 		double _coupon;
 
 	};
 
 
-	template<double nominal> bond<nominal>::bond(double coupon) noexcept
-		: _coupon{ coupon }
+	template<double nominal> bond<nominal>::bond(
+		std::chrono::year_month_day maturity,
+		double coupon
+	) noexcept :
+		_maturity{ std::move(maturity) },
+		_coupon{ coupon }
 	{
 	}
 
 
-	template<double nominal> auto bond<nominal>::get_coupon() const noexcept
-	{
-		return _coupon;
-	}
-
-
-	template<double nominal> auto bond<nominal>::get_nominal() const noexcept
+	template<double nominal> auto bond<nominal>::get_nominal() const noexcept -> double
 	{
 		return nominal;
+	}
+
+
+	template<double nominal> auto bond<nominal>::get_maturity() const noexcept -> std::chrono::year_month_day
+	{
+		return _maturity;
+	}
+
+	template<double nominal> auto bond<nominal>::get_coupon() const noexcept -> double
+	{
+		return _coupon;
 	}
 
 }

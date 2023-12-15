@@ -25,8 +25,12 @@
 #include <bond.h>
 #include <utils.h>
 
+#include <chrono>
+#include <iostream>
+
 
 using namespace std;
+using namespace std::chrono;
 
 using namespace security;
 
@@ -34,7 +38,10 @@ using namespace security;
 
 inline auto make_8_2015() -> bond<>
 {
-	return bond{ from_percent(8.0) };
+	return bond{
+		2015y / December / 7d,
+		from_percent(8.0)
+	};
 }
 
 
@@ -42,6 +49,8 @@ inline auto make_8_2015() -> bond<>
 int main()
 {
 	const auto b_8_2015 = make_8_2015();
+
+	cout << "Maturity date " << b_8_2015.get_maturity() << endl;
 
 	return 0;
 }
