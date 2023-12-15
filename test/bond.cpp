@@ -39,7 +39,7 @@ namespace security
 	{
 		const auto b = bond{
 			2024y / April / 1d,
-			from_percent(2.5)
+			0.025
 		};
 
 		EXPECT_EQ(0.025, b.get_coupon());
@@ -50,7 +50,7 @@ namespace security
 	{
 		return bond{
 			2024y / April / 1d,
-			0.025
+			from_percent(2.5)
 		};
 	}
 
