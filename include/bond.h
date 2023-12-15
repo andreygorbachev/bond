@@ -26,7 +26,7 @@
 #include <memory>
 
 
-namespace security
+namespace security // is it a good namespace?
 {
 
 	template<double nominal = 100.0> class bond
