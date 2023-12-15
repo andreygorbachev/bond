@@ -23,7 +23,7 @@
 #pragma once
 
 
-namespace bond
+namespace security
 {
 
 	template<double nominal = 100.0> class bond

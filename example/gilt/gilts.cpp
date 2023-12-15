@@ -20,22 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "gilts.h"
+
+#include <bond.h>
 #include <utils.h>
 
-#include <gtest/gtest.h>
+
+using namespace std;
+
+using namespace security;
 
 
-namespace security
+
+inline auto make_8_2015() -> bond<>
 {
+	return bond{ from_percent(8.0) };
+}
 
-	TEST(utils, from_percent)
-	{
-		EXPECT_EQ(0.025, from_percent(2.5));
-	}
 
-	TEST(utils, to_percent)
-	{
-		EXPECT_EQ(2.5, to_percent(0.025));
-	}
 
+int main()
+{
+	const auto b_8_2015 = make_8_2015();
+
+	return 0;
 }

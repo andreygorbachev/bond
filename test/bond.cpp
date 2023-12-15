@@ -25,7 +25,7 @@
 #include <gtest/gtest.h>
 
 
-namespace bond
+namespace security
 {
 
 	auto make_bond() noexcept -> bond<100.0>

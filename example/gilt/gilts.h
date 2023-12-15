@@ -20,22 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <utils.h>
+#pragma once
 
-#include <gtest/gtest.h>
+#include <bond.h>
 
 
-namespace security
-{
 
-	TEST(utils, from_percent)
-	{
-		EXPECT_EQ(0.025, from_percent(2.5));
-	}
+// from https://www.dmo.gov.uk/media/ftjpyv1z/yldconv.pdf
 
-	TEST(utils, to_percent)
-	{
-		EXPECT_EQ(2.5, to_percent(0.025));
-	}
-
-}
+auto make_8_2015() -> security::bond<>;

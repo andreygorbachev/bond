@@ -23,7 +23,7 @@
 #pragma once
 
 
-namespace bond
+namespace security
 {
 
 	constexpr auto from_percent(const double x) noexcept -> double
