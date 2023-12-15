@@ -25,4 +25,34 @@
 
 namespace bond
 {
+
+	class bond
+	{
+
+	public:
+
+		explicit bond(double coupon) noexcept;
+
+	public:
+
+		auto get_coupon() const noexcept;
+
+	private:
+
+		double _coupon;
+
+	};
+
+
+	inline bond::bond(double coupon) noexcept
+		: _coupon{ coupon }
+	{
+	}
+
+
+	inline auto bond::get_coupon() const noexcept
+	{
+		return _coupon;
+	}
+
 }

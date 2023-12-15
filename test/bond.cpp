@@ -27,4 +27,12 @@
 
 namespace bond
 {
+
+	TEST(bond, constructor)
+	{
+		const auto b = bond{ 2.5 };
+
+		EXPECT_EQ(2.5, b.get_coupon());
+	}
+
 }
