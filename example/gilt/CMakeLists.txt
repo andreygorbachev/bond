@@ -1,4 +1,4 @@
-project("build-example-gilt")
+project("bond-example-gilt")
 
 add_executable(${PROJECT_NAME}
   gilts.cpp
