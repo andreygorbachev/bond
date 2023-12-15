@@ -10,6 +10,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(${PROJECT_NAME}
   bond.cpp
+  utils.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

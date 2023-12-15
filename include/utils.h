@@ -20,26 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <bond.h>
-
-#include <gtest/gtest.h>
+#pragma once
 
 
 namespace bond
 {
 
-	TEST(bond, constructor)
+	constexpr auto from_percent(const double x) noexcept -> double
 	{
-		const auto b = bond{ 0.025 };
-
-		EXPECT_EQ(0.025, b.get_coupon());
+		return x / 100.0;
 	}
 
-	TEST(bond, get_coupon)
+	constexpr auto to_percent(const double x) noexcept -> double
 	{
-		const auto b = bond{ 0.025 };
-
-		EXPECT_EQ(0.025, b.get_coupon());
+		return x * 100.0;
 	}
 
 }

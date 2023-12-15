@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <bond.h>
+#include <utils.h>
 
 #include <gtest/gtest.h>
 
@@ -28,18 +28,14 @@
 namespace bond
 {
 
-	TEST(bond, constructor)
+	TEST(utils, from_percent)
 	{
-		const auto b = bond{ 0.025 };
-
-		EXPECT_EQ(0.025, b.get_coupon());
+		EXPECT_EQ(0.025, from_percent(2.5));
 	}
 
-	TEST(bond, get_coupon)
+	TEST(utils, to_percent)
 	{
-		const auto b = bond{ 0.025 };
-
-		EXPECT_EQ(0.025, b.get_coupon());
+		EXPECT_EQ(2.5, to_percent(0.025));
 	}
 
 }
