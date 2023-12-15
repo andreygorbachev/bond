@@ -50,6 +50,7 @@ int main()
 {
 	const auto b_8_2015 = make_8_2015();
 
+	cout << "Bond " << "8% 2015" << endl;
 	cout << "Maturity date " << b_8_2015.get_maturity() << endl;
 
 	return 0;
