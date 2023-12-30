@@ -20,59 +20,64 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include <bond.h>
-#include <utils.h>
-
-#include <gtest/gtest.h>
+#pragma once
 
 #include <chrono>
+#include <memory>
 
 
-using namespace std;
-using namespace std::chrono;
-
-
-namespace security
+namespace security // is it a good namespace?
 {
 
-	TEST(bond, constructor)
+	template<double nominal = 100.0> class bond_calculator
 	{
-		const auto b = bond{
-			2024y / April / 1d,
-			0.025
-		};
 
-		EXPECT_EQ(0.025, b.get_coupon());
+	public:
+
+		explicit bond_calculator(
+			std::chrono::year_month_day maturity,
+			double coupon
+		) noexcept;
+
+	public:
+
+		auto get_nominal() const noexcept -> double;
+
+		auto get_maturity() const noexcept -> std::chrono::year_month_day;
+		auto get_coupon() const noexcept -> double;
+
+	private:
+
+		std::chrono::year_month_day _maturity;
+		double _coupon;
+
+	};
+
+
+	template<double nominal> bond_calculator<nominal>::bond_calculator(
+		std::chrono::year_month_day maturity,
+		double coupon
+	) noexcept :
+		_maturity{ std::move(maturity) },
+		_coupon{ coupon }
+	{
 	}
 
 
-	auto make_bond() noexcept -> bond<100.0>
+	template<double nominal> auto bond_calculator<nominal>::get_nominal() const noexcept -> double
 	{
-		return bond{
-			2024y / April / 1d,
-			from_percent(2.5)
-		};
+		return nominal;
 	}
 
-	TEST(bond, get_nominal)
-	{
-		const auto b = make_bond();
 
-		EXPECT_EQ(100.0, b.get_nominal());
+	template<double nominal> auto bond_calculator<nominal>::get_maturity() const noexcept -> std::chrono::year_month_day
+	{
+		return _maturity;
 	}
 
-	TEST(bond, get_maturity)
+	template<double nominal> auto bond_calculator<nominal>::get_coupon() const noexcept -> double
 	{
-		const auto b = make_bond();
-
-		EXPECT_EQ(2024y / April / 1d, b.get_maturity());
-	}
-
-	TEST(bond, get_coupon)
-	{
-		const auto b = make_bond();
-
-		EXPECT_EQ(0.025, b.get_coupon());
+		return _coupon;
 	}
 
 }

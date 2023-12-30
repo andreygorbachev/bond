@@ -20,64 +20,59 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
+#include <bond_calculator.h>
+#include <utils.h>
+
+#include <gtest/gtest.h>
 
 #include <chrono>
-#include <memory>
 
 
-namespace security // is it a good namespace?
+using namespace std;
+using namespace std::chrono;
+
+
+namespace security
 {
 
-	template<double nominal = 100.0> class bond
+	TEST(bond_calculator, constructor)
 	{
+		const auto bc = bond_calculator{
+			2024y / April / 1d,
+			0.025
+		};
 
-	public:
-
-		explicit bond(
-			std::chrono::year_month_day maturity,
-			double coupon
-		) noexcept;
-
-	public:
-
-		auto get_nominal() const noexcept -> double;
-
-		auto get_maturity() const noexcept -> std::chrono::year_month_day;
-		auto get_coupon() const noexcept -> double;
-
-	private:
-
-		std::chrono::year_month_day _maturity;
-		double _coupon;
-
-	};
-
-
-	template<double nominal> bond<nominal>::bond(
-		std::chrono::year_month_day maturity,
-		double coupon
-	) noexcept :
-		_maturity{ std::move(maturity) },
-		_coupon{ coupon }
-	{
+		EXPECT_EQ(0.025, bc.get_coupon());
 	}
 
 
-	template<double nominal> auto bond<nominal>::get_nominal() const noexcept -> double
+	auto make_bond_calculator() noexcept -> bond_calculator<100.0>
 	{
-		return nominal;
+		return bond_calculator{
+			2024y / April / 1d,
+			from_percent(2.5)
+		};
 	}
 
-
-	template<double nominal> auto bond<nominal>::get_maturity() const noexcept -> std::chrono::year_month_day
+	TEST(bond_calculator, get_nominal)
 	{
-		return _maturity;
+		const auto bc = make_bond_calculator();
+
+		EXPECT_EQ(100.0, bc.get_nominal());
 	}
 
-	template<double nominal> auto bond<nominal>::get_coupon() const noexcept -> double
+	TEST(bond_calculator, get_maturity)
 	{
-		return _coupon;
+		const auto bc = make_bond_calculator();
+
+		EXPECT_EQ(2024y / April / 1d, bc.get_maturity());
+	}
+
+	TEST(bond_calculator, get_coupon)
+	{
+		const auto bc = make_bond_calculator();
+
+		EXPECT_EQ(0.025, bc.get_coupon());
 	}
 
 }

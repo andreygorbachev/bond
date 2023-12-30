@@ -9,7 +9,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 add_executable(${PROJECT_NAME}
-  bond.cpp
+  bond_calculator.cpp
   utils.cpp
 )
 

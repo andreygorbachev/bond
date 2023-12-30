@@ -1,7 +1,7 @@
 project("bond")
 
 add_library(${PROJECT_NAME} INTERFACE
-  bond.h
+  bond_calculator.h
   utils.h
 )
 
