@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "bond.h"
+
 #include <chrono>
 #include <memory>
 
@@ -29,55 +31,33 @@
 namespace security // is it a good namespace?
 {
 
-	template<double nominal = 100.0> class bond_calculator
+	class bond_calculator
 	{
 
 	public:
 
-		explicit bond_calculator(
-			std::chrono::year_month_day maturity,
-			double coupon
-		) noexcept;
+		explicit bond_calculator(bond b);
 
 	public:
 
-		auto get_nominal() const noexcept -> double;
-
-		auto get_maturity() const noexcept -> std::chrono::year_month_day;
-		auto get_coupon() const noexcept -> double;
+		auto get_bond() const noexcept -> const bond&;
 
 	private:
 
-		std::chrono::year_month_day _maturity;
-		double _coupon;
+		bond _b;
 
 	};
 
 
-	template<double nominal> bond_calculator<nominal>::bond_calculator(
-		std::chrono::year_month_day maturity,
-		double coupon
-	) noexcept :
-		_maturity{ std::move(maturity) },
-		_coupon{ coupon }
+	bond_calculator::bond_calculator(bond b) :
+		_b{ std::move(b) }
 	{
 	}
 
 
-	template<double nominal> auto bond_calculator<nominal>::get_nominal() const noexcept -> double
+	auto bond_calculator::get_bond() const noexcept -> const bond&
 	{
-		return nominal;
-	}
-
-
-	template<double nominal> auto bond_calculator<nominal>::get_maturity() const noexcept -> std::chrono::year_month_day
-	{
-		return _maturity;
-	}
-
-	template<double nominal> auto bond_calculator<nominal>::get_coupon() const noexcept -> double
-	{
-		return _coupon;
+		return _b;
 	}
 
 }

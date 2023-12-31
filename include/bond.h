@@ -33,7 +33,9 @@ namespace security // is it a good namespace?
 
 		double nominal;
 		std::chrono::year_month_day maturity;
-		double coupon;
+		double coupon; // in percentages, so 8% coupon is 0.08 - is it good?
+
+		friend auto operator<=>(const bond&, const bond&) = default;
 
 	};
 

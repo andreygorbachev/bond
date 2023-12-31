@@ -22,10 +22,10 @@
 
 #pragma once
 
-#include <bond_calculator.h>
+#include <bond.h>
 
 
 
 // from https://www.dmo.gov.uk/media/ftjpyv1z/yldconv.pdf
 
-auto make_8_2015() -> security::bond_calculator<>;
+auto make_8_2015() -> security::bond;

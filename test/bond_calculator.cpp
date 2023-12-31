@@ -35,44 +35,29 @@ using namespace std::chrono;
 namespace security
 {
 
+	auto make_bond() noexcept -> bond
+	{
+		return bond{
+			100.0,
+			2024y / April / 1d,
+			2.5
+		};
+	}
+
+
 	TEST(bond_calculator, constructor)
 	{
-		const auto bc = bond_calculator{
-			2024y / April / 1d,
-			0.025
-		};
+		const auto bc = bond_calculator{ make_bond() };
 
-		EXPECT_EQ(0.025, bc.get_coupon());
+		EXPECT_EQ(0.025, from_percent(bc.get_bond().coupon));
 	}
 
 
-	auto make_bond_calculator() noexcept -> bond_calculator<100.0>
+	TEST(bond_calculator, get_bond)
 	{
-		return bond_calculator{
-			2024y / April / 1d,
-			from_percent(2.5)
-		};
-	}
+		const auto bc = bond_calculator{ make_bond() };
 
-	TEST(bond_calculator, get_nominal)
-	{
-		const auto bc = make_bond_calculator();
-
-		EXPECT_EQ(100.0, bc.get_nominal());
-	}
-
-	TEST(bond_calculator, get_maturity)
-	{
-		const auto bc = make_bond_calculator();
-
-		EXPECT_EQ(2024y / April / 1d, bc.get_maturity());
-	}
-
-	TEST(bond_calculator, get_coupon)
-	{
-		const auto bc = make_bond_calculator();
-
-		EXPECT_EQ(0.025, bc.get_coupon());
+		EXPECT_EQ(make_bond(), bc.get_bond());
 	}
 
 }

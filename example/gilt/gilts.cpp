@@ -22,7 +22,7 @@
 
 #include "gilts.h"
 
-#include <bond_calculator.h>
+#include <bond.h>
 #include <utils.h>
 
 #include <chrono>
@@ -36,11 +36,12 @@ using namespace security;
 
 
 
-inline auto make_8_2015() -> bond_calculator<>
+inline auto make_8_2015() -> bond
 {
-	return bond_calculator{
+	return bond{
+		100.0,
 		2015y / December / 7d,
-		from_percent(8.0)
+		8.0
 	};
 }
 
@@ -51,7 +52,7 @@ int main()
 	const auto b_8_2015 = make_8_2015();
 
 	cout << "Bond " << "8% 2015" << endl;
-	cout << "Maturity date " << b_8_2015.get_maturity() << endl;
+	cout << "Maturity date " << b_8_2015.maturity << endl;
 
 	return 0;
 }
