@@ -49,7 +49,7 @@ namespace security
 	{
 		const auto bc = bond_calculator{ make_bond() };
 
-		EXPECT_EQ(0.025, from_percent(bc.get_bond().coupon));
+		EXPECT_EQ(make_bond(), bc.get_bond());
 	}
 
 
